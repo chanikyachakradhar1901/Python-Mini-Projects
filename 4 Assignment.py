@@ -1,31 +1,67 @@
 # -------------------------------
 # 1. Employee Management
 # -------------------------------
-employees=[]
+employees = []
+
 def add_employee():
-    employees.append({"name":input("Name:"),"age":int(input("Age:")),"role":input("Role:"),"salary":float(input("Salary:"))})
-def display(): print(employees)
-def delete_employee(n): 
+    emp = {
+        "name": input("Name: "),
+        "age": int(input("Age: ")),
+        "role": input("Role: "),
+        "salary": float(input("Salary: "))
+    }
+    employees.append(emp)
+
+def update_employee():
+    name = input("Enter name to update: ")
+    for emp in employees:
+        if emp["name"] == name:
+            emp["age"] = int(input("New Age: "))
+            emp["role"] = input("New Role: ")
+            emp["salary"] = float(input("New Salary: "))
+            print("Updated Successfully")
+            return
+    print("Employee not found")
+
+def delete_employee():
+    name = input("Enter name to delete: ")
     global employees
-    employees=[e for e in employees if e["name"]!=n]
-add_employee(); display(); delete_employee(input("Delete:")); display()
+    employees = [e for e in employees if e["name"] != name]
+
+def display():
+    print("\nEmployees:")
+    for emp in employees:
+        print(emp)
+
+# Run once
+add_employee()
+update_employee()
+delete_employee()
+display()
 
 # -------------------------------
 # 2. Student Report Card
 # -------------------------------
 
+student = {}
+
 def report():
-    name = input("Name: ")
-    m1 = int(input("Sub1: "))
-    m2 = int(input("Sub2: "))
-    m3 = int(input("Sub3: "))
+    student["name"] = input("Name: ")
+    student["marks"] = [
+        int(input("Sub1: ")),
+        int(input("Sub2: ")),
+        int(input("Sub3: "))
+    ]
     
-    total = m1 + m2 + m3
+    total = sum(student["marks"])
     avg = total / 3
     
     grade = "A" if avg >= 80 else "B" if avg >= 60 else "C"
     
-    print(f"{name} | Total: {total} | Avg: {avg:.2f} | Grade: {grade}")
+    print(f"\nName: {student['name']}")
+    print(f"Total: {total}")
+    print(f"Average: {avg:.2f}")
+    print(f"Grade: {grade}")
 
 report()
 
@@ -35,17 +71,32 @@ report()
 
 cart = []
 
-def add():
-    name = input("Item: ")
-    price = float(input("Price: "))
-    qty = int(input("Qty: "))
-    cart.append({"name": name, "price": price, "qty": qty})
+def add_item():
+    item = {
+        "name": input("Item: "),
+        "price": float(input("Price: ")),
+        "qty": int(input("Quantity: "))
+    }
+    cart.append(item)
+
+def remove_item():
+    name = input("Enter item to remove: ")
+    global cart
+    cart = [i for i in cart if i["name"] != name]
+
+def display():
+    print("\nCart Items:")
+    for i in cart:
+        print(i)
 
 def total():
     bill = sum(i["price"] * i["qty"] for i in cart)
-    print("Total:", bill)
+    print("Total Bill:", bill)
 
-add()
+# Run once
+add_item()
+remove_item()
+display()
 total()
 
 # -------------------------------
