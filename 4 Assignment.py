@@ -90,15 +90,31 @@ print(name.center(10, "*"))
 # 7. Bank System
 # -------------------------------
 
-balance = 1000
+# Create account
+account = {
+    "name": input("Enter name: "),
+    "balance": float(input("Enter initial balance: "))
+}
 
-deposit = int(input("\nDeposit: "))
-balance += deposit
+# Deposit function
+def deposit(amount):
+    account["balance"] += amount
 
-withdraw = int(input("Withdraw: "))
-balance -= withdraw
+# Withdraw function
+def withdraw(amount):
+    if amount <= account["balance"]:
+        account["balance"] -= amount
+    else:
+        print("Insufficient balance")
 
-print("Balance:", balance)
+# Check balance function
+def check_balance():
+    print("Current Balance:", account["balance"])
+
+# Perform operations
+deposit(float(input("Enter deposit amount: ")))
+withdraw(float(input("Enter withdraw amount: ")))
+check_balance()
 
 # -------------------------------
 # 8. Voting System
